@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 /**
 * JSONfn - javascript (both node.js and browser) plugin to stringify,
 *          parse and clone objects with Functions, Regexp and Date.
@@ -70,6 +71,9 @@
 
       if (iso8061 && value.match(iso8061)) {
         return new Date(value);
+      }
+      if (moment(value, 'YYYY-MM-DDTHH:mm:ss.SSSSZ', true).isValid()) {
+        return new moment(value);
       }
       if (prefix === 'function') {
         return eval('(' + value + ')');
